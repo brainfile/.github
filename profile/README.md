@@ -1,21 +1,12 @@
-# 🧠 Brainfile
+# Brainfile
 
-**A protocol-first task management system designed for the AI era.**
+**Task management in your repo.** One markdown file. Full kanban board.
 
-Brainfile is a simple, human-readable format for managing project tasks that both humans and AI coding assistants can read, write, and collaborate through. Think of it as a shared language for project management between you and your AI pair programmer.
-
-## The Protocol
-
-At its core, Brainfile is just a `brainfile.md` file with YAML frontmatter:
+Your tasks live in a `brainfile.md` file alongside your code. No SaaS. No accounts. No sync issues. Works offline. Version-controlled with git. AI assistants can read and update it directly.
 
 ```yaml
 ---
-schema: https://brainfile.md/v1
 title: My Project
-agent:
-  instructions:
-    - Update task status as you work (todo → in-progress → done)
-    - Make minimal, atomic changes
 columns:
   - id: todo
     title: To Do
@@ -23,36 +14,24 @@ columns:
       - id: task-1
         title: Implement user authentication
         priority: high
+  - id: in-progress
+    title: In Progress
+    tasks: []
   - id: done
     title: Done
     tasks: []
 ---
 ```
 
-That's it. No database, no backend, no complex setup. Just a markdown file that lives in your repository.
+That's the entire format. Human-readable. Machine-parseable. Git-friendly.
 
 ## Why Brainfile?
 
-### 🤖 **AI-First Design**
-- Designed specifically for AI-assisted development
-- Optional `agent` instructions guide AI behavior
-- Protocol-based: tools are conveniences, the file is the source of truth
-
-### 📝 **Human-Readable**
-- Plain text YAML and Markdown
-- Easy to edit directly or with tools
-- Version control friendly (perfect for git)
-
-### 🔌 **Extensible**
-- JSON Schema validation
-- Multiple implementations (TypeScript, CLI, VSCode)
-- Build your own tools on the protocol
-
-### 🎯 **Simple**
-- No dependencies required
-- File-based (no database)
-- Works offline
-- Portable across projects
+- **Lives in your repo** — Branch tasks with code. Merge them together. Roll back if needed.
+- **Works offline** — It's a file. No internet required.
+- **AI integration** — MCP server lets Claude, Cursor, and other AI tools update tasks directly.
+- **No vendor lock-in** — Plain markdown. Use any editor. Build your own tools.
+- **Free forever** — Not freemium. Just free.
 
 ## Repository Structure
 
@@ -65,113 +44,69 @@ That's it. No database, no backend, no complex setup. Just a markdown file that 
 
 ## Quick Start
 
-### 1. Install the VSCode Extension
-
 ```bash
-# Coming soon to VS Code Marketplace
-# For now, download from releases
-```
-
-### 2. Or use the CLI
-
-```bash
+# Install
 npm install -g @brainfile/cli
 
-# Create a new brainfile
+# Create a brainfile
 brainfile init
 
-# List tasks
-brainfile list
-
-# Add a task
-brainfile add "Implement feature" --priority high
+# Open the TUI
+brainfile
 ```
 
-### 3. Or use the library
+That's it. You have a kanban board in your terminal.
 
-```bash
-npm install @brainfile/core
+### AI Integration (Optional)
+
+Add this to your MCP settings (`.mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "brainfile": {
+      "command": "npx",
+      "args": ["@brainfile/cli", "mcp"]
+    }
+  }
+}
 ```
 
-```typescript
-import { Brainfile } from '@brainfile/core';
+Now Claude Code, Cursor, and other MCP-compatible assistants can list, add, move, and update tasks directly.
 
-const brain = new Brainfile();
-const board = await brain.parse('./brainfile.md');
+## Who It's For
 
-// Access tasks
-const todoTasks = board.columns.find(c => c.id === 'todo')?.tasks;
+- **Solo devs** who want simplicity without paying for Linear or setting up Jira
+- **AI-assisted developers** using Claude Code, Cursor, or similar tools
+- **Developers tired of freemium tools** that slowly gate features behind pricing tiers
+- **Builders** who want a library to build custom task management tools
+- **Anyone** who wants local-first task management without cloud dependencies
 
-// Modify and save
-brain.serialize(board, './brainfile.md');
-```
+## Documentation
 
-## Use Cases
-
-- 🤝 **AI Pair Programming**: Give your AI assistant context about your project's tasks
-- 📋 **Project Management**: Simple, version-controlled task tracking
-- 🚀 **CI/CD Integration**: Automate task updates in your pipelines
-- 📝 **Documentation**: Tasks live alongside your code
-- 🔄 **Async Collaboration**: AI and humans work on the same task board
-
-## Example AI Integration
-
-Add this comment to your README to auto-load tasks for AI assistants:
-
-```markdown
-<!-- load:brainfile.md -->
-```
-
-Now when AI coding assistants read your README, they automatically understand your project's task context.
-
-## AI Agent Configuration
-
-For the simplest integration, add these instructions to your agent configuration file (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`, etc.):
-
-```markdown
-# Task Management Rules
-
-- review and follow rules in @brainfile.md
-- update task status in @brainfile.md as you work (todo → in-progress → done)
-- reference `schema` in the file for how to create tasks
-- your existing tools do not modify this file, you need to edit it directly
-```
-
-**Recommended**: Keep only these minimal instructions in your agent config file, and use `brainfile.md` for project-specific rules and context. This keeps agent instructions clean and portable across projects.
-
-## Schema & Documentation
-
-- **Schema**: https://brainfile.md/v1
-- **Protocol Spec**: [protocol/docs/protocol.md](https://github.com/brainfile/protocol/blob/main/docs/protocol.md)
-- **Agent Guide**: [protocol/docs/agents.md](https://github.com/brainfile/protocol/blob/main/docs/agents.md)
+- **Website**: [brainfile.md](https://brainfile.md)
+- **Quick Start**: [brainfile.md/quick-start](https://brainfile.md/quick-start)
+- **CLI Reference**: [brainfile.md/tools/cli](https://brainfile.md/tools/cli)
+- **MCP Integration**: [brainfile.md/tools/mcp](https://brainfile.md/tools/mcp)
 
 ## Contributing
 
-We welcome contributions! Each repository has its own contributing guide:
+Contributions welcome. Each repository is independent:
 
-- Protocol changes → [brainfile/protocol](https://github.com/brainfile/protocol)
-- Core library → [brainfile/core](https://github.com/brainfile/core)
-- CLI tool → [brainfile/cli](https://github.com/brainfile/cli)
-- VSCode extension → [brainfile/vscode](https://github.com/brainfile/vscode)
+| Repo | Purpose |
+|------|---------|
+| [protocol](https://github.com/brainfile/protocol) | Spec, schema, docs |
+| [core](https://github.com/brainfile/core) | TypeScript library |
+| [cli](https://github.com/brainfile/cli) | CLI & MCP server |
+| [vscode](https://github.com/brainfile/vscode) | VSCode extension |
 
 ## Philosophy
 
 > **The protocol is the product.**
 
-Brainfile is protocol-first. The `brainfile.md` format is the core, and tools (CLI, VSCode, etc.) are conveniences. You don't need any tools—just the file and an AI assistant that understands it.
-
-This means:
-- ✅ No vendor lock-in
-- ✅ Your data is portable
-- ✅ Build your own tools
-- ✅ Works with any editor
-- ✅ Compatible with future AI models
-
-## License
-
-MIT License - All repositories are open source.
+The `brainfile.md` format is the core. Tools are conveniences. You can write a brainfile by hand with any text editor and never install anything else.
 
 ---
 
-**Get Started**: Check out the [protocol](https://github.com/brainfile/protocol) repository or install the [CLI](https://github.com/brainfile/cli)!
+MIT License
 

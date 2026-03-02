@@ -7,7 +7,7 @@ Brainfile is a file-based task management system that keeps your project managem
 ### The Three-Layer Model
 
 - **Board**: Active tasks live in `.brainfile/board/` as individual files.
-- **Logs**: Completed work moves to `.brainfile/logs/` for permanent history.
+- **Logs**: Completion records are appended to `.brainfile/logs/ledger.jsonl` for permanent history.
 - **Rules**: Configuration and promoted ADRs inject context into every agent interaction.
 
 ### Key Features

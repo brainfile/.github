@@ -1,33 +1,16 @@
 # Brainfile
 
-**An open protocol for agentic task coordination.**
+> ⚠️ **This organization has moved.** brainfile now lives in one repository:
+>
+> ## → [github.com/1broseidon/brainfile](https://github.com/1broseidon/brainfile)
 
-Brainfile is a file-based task management system that keeps project coordination inside your codebase, where your agents live and work.
+**Markdown task boards for you and your AI agents** — CLI, TUI, and MCP server. File-system native, MIT licensed.
 
-### Architecture
+```bash
+npm i -g brainfile
+```
 
-- **Board**: Active tasks live in `.brainfile/board/` as individual markdown files.
-- **Logs**: Completion records are appended to `.brainfile/logs/ledger.jsonl` for permanent history.
-- **Rules**: Configuration and promoted ADRs inject context into every agent interaction.
+- Docs: [brainfile.md](https://brainfile.md)
+- npm: [`brainfile`](https://www.npmjs.com/package/brainfile) (CLI) · [`@brainfile/core`](https://www.npmjs.com/package/@brainfile/core) (library)
 
-### Key Features
-
-- **Strict Types**: Tasks, Epics, and ADRs with schema validation.
-- **Contracts**: Define deliverables and validation for AI agents.
-- **ADR Promotion**: Turn architectural decisions into active rules.
-- **Agent Tools**: CLI, MCP server, and Python/TypeScript libraries.
-
-### Packages
-
-| Package | Description |
-|---------|-------------|
-| [@brainfile/cli](https://github.com/brainfile/cli) | CLI with TUI and MCP server |
-| [@brainfile/core](https://github.com/brainfile/core) | TypeScript library |
-| [brainfile](https://github.com/brainfile/py) | Python library |
-| [Protocol](https://github.com/brainfile/protocol) | Specification and JSON schemas |
-
-### Links
-
-- [Documentation](https://brainfile.md)
-- [NPM Packages](https://www.npmjs.com/search?q=%40brainfile)
-- [PyPI Package](https://pypi.org/project/brainfile/)
+The repositories in this organization are archived and read-only.
